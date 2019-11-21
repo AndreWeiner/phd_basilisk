@@ -17,12 +17,18 @@ The convenience script *createContainer.sh* by default pulls the image tagged wi
 
 ## Starting a simulation
 
+If not already done, clone this repository using Git or by clicking the *Download* button.
+
+```
+git clone https://github.com/AndreWeiner/phd_basilisk.git
+cd phd_basilisk
+```
 To pull the Basilisk image and to create a container with suitable settings, run:
 
 ```
 ./createContainer.sh
 ```
-The script has to be executed **only once** on a fresh installation/workstation. To compile the solver contained in the *solver* directory, run:
+The script has to be executed **only once** on a fresh installation/workstation. By default, the user executing the script is also mapped into the container. This setting ensures that output files have the the right owner. If you execute the script as root, e.g. by using *sudo*, then all files belong to the root user. However, you can change the ownership afterwards with [chown](https://askubuntu.com/questions/693418/use-chown-to-set-the-ownership-of-all-a-folders-subfolders-and-files/693423). To compile the solver contained in the *solver* directory, run:
 
 ```
 ./startContainer.sh
@@ -36,7 +42,7 @@ From within the container, create a *run* directory and execute the solver:
 cd ..
 mkdir run
 cd run
-mpirun -np 4 $HOME/solver/bubble 13 2.0 200.0
+mpirun -np 4 $HOME/solver/bubble 13 2.0 200.0 &> log.bubble
 ```
 The code-block above executes the solver with 4 MPI processes (-np 4). The command-line arguments can be used to create different refinement levels and physical conditions:
 
@@ -45,6 +51,34 @@ The code-block above executes the solver with 4 MPI processes (-np 4). The comma
 - the third argument is a double defining the **Galilei number**
 
 For more information about the setting, follow the links at the beginning of this document.
+
+## Native builds
+
+Sometimes it can be necessary to create native builds, for example, to run the solver on HPC resources. The Basilisk compiler *qcc* allows to create a single source file containing the entire solver functionality. The resulting source, e.g. *_bubble_axis_symmetric.c*, can be moved to and compiled on the target platform. A typical workflow looks like:
+
+```
+# start a bash shell in the container
+./startContainer
+cd solver
+make native
+# logout to get back to the host machine
+exit
+scp solver/_bubble_axis_symmetric.c user_name@hpc.address.com:/home/user_directory/
+# log in on the cluster and load gcc/openmpi modules
+mpicc -Wall -O2 _bubble_axis_symmetric.c -o bubble -lm -lmpi
+```
+The Docker container employs
+
+- openMPI 1.10.2
+- gcc 5.4.0
+
+to compile and run the code. However, there is some flexibility regarding the compatibility between various versions of each component. If the linker has trouble to find the MPI shared object libraries, append the *-I/path/to/mpi/** option to the compile-command above.
+
+## Trouble shooting
+
+If you have technical questions regarding the compilation or execution, feel free to use the [issue tracker](https://github.com/AndreWeiner/phd_basilisk/issues) of this repository. Some known problems are listed below:
+
+- *mpirun* display the warning **Unexpected end of /proc/mounts line**; this issue can be fixed by moving to a newer version of openMPI >= 3.0; see [this post](https://stackoverflow.com/questions/46138549/docker-openmpi-and-unexpected-end-of-proc-mounts-line) on Stackoverflow; native builds are not affected since this issue is related to Docker
 
 ## How to reference
 
