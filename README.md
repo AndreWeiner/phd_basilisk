@@ -47,8 +47,12 @@ mpirun -np 4 $HOME/solver/bubble 13 2.0 200.0 &> log.bubble
 The code-block above executes the solver with 4 MPI processes (-np 4). The command-line arguments can be used to create different refinement levels and physical conditions:
 
 - the first argument is an integer value defining the maximum allowed **refinement level**
-- the second argument is a double defining the **Bond/Eotvos number**
-- the third argument is a double defining the **Galilei number**
+- the second argument is a double defining the **Bond/Eotvos number** (*Eo*)
+- the third argument is a double defining the **Galilei number** (*Ga*)
+
+Some results for different combinations of *Eo* and *Ga* are depicted hereafter. *Eo*/*Ga* from left to right are 243/80, 115/135, 339/30.8, and the resulting shapes are usually referred to as dimpled ellipsoidal, spherical cap, and skirted bubbles. The scripts to generate such visualizations can be found [here](https://github.com/AndreWeiner/phd_notebooks/blob/master/notebooks/basilisk_2D_velocity_field.ipynb).
+
+<img src="bhaga_velocity_fields.png" alt="shapes" width="800"/>
 
 For more information about the setting, follow the links at the beginning of this document.
 
