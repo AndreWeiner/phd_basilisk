@@ -86,16 +86,15 @@ If you have technical questions regarding the compilation or execution, feel fre
 
 ## How to reference
 
-This repository accompanies the following publication, which will be published by spring 2020:
+This repository accompanies the following publication:
 ```
-@electronic{weiner2020,
-  address = {Darmstadt},
-  author = {Weiner, Andre},
-  hdsurl = {xxx},
-  keywords = {xxx},
-  title = {Modeling and simulation of convection-dominated species transfer at rising bubbles},
-  uniqueid = {xxx},
-  url = {xxx},
-  year = 2020
+@phdthesis{tuprints11405,
+            year = {2020},
+         address = {Darmstadt},
+          school = {Technical University of Darmstadt, Mathematical Modeling and Analysis},
+          author = {Andre Weiner},
+           title = {Modeling and simulation of convection-dominated species transfer at rising bubbles},
+           month = {February},
+            url = {http://tuprints.ulb.tu-darmstadt.de/11405/}
 }
 ```
