@@ -4,6 +4,8 @@ This repository contains the source code and scripts to simulate an axis-symmetr
 ```
 Modeling and simulation of convection-dominated species transfer at rising bubbles
 ```
+This project was funded by the German Reseach Foundation (DFG) within the priority program [SPP1740 Reactive Bubbly Flows](http://www.dfg-spp1740.de/) under the grand *BO 1879/13-2*. The work was supervised by [Prof. Dr. rer. nat. Dieter Bothe](mailto:bothe@mma.tu-darmstadt.de) and conducted at the [Institute for Mathematical Modeling and Analysis](https://www.mma.tu-darmstadt.de/index/index.en.jsp) at the Technical University of Darmstadt.
+
 The solver is based on the Basilisk test cases
 - [bubble.c](http://basilisk.fr/src/examples/bubble.c)
 - [rising.c](http://basilisk.fr/src/test/rising.c)
